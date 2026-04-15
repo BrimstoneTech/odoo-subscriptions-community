@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_flexirenew_subscription_user,flexirenew_subscription_user,model_flexirenew_subscription,base.group_user,1,1,1,1
+access_flexirenew_subscription_admin,flexirenew_subscription_admin,model_flexirenew_subscription,base.group_system,1,1,1,1
+access_flexirenew_subscription_line_user,flexirenew_subscription_line_user,model_flexirenew_subscription_line,base.group_user,1,1,1,1
+access_flexirenew_subscription_line_admin,flexirenew_subscription_line_admin,model_flexirenew_subscription_line,base.group_system,1,1,1,1
+access_flexirenew_report_wizard,flexirenew.report.wizard,model_flexirenew_report_wizard,base.group_user,1,1,1,1

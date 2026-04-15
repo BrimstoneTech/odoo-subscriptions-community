@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_financial_summary_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="text-center mb-4">
+                        <h2>Financial Summary Report</h2>
+                        <p class="text-muted">Generated on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></p>
+                    </div>
+
+                    <t t-set="subs" t-value="env['flexirenew.subscription'].search([('state', '=', 'active'), ('type', '=', 'incoming')])"/>
+                    <t t-set="mrr" t-value="sum(s.mrr for s in subs)"/>
+                    <t t-set="arr" t-value="sum(s.arr for s in subs)"/>
+
+                    <div class="row mb-5 mt-4">
+                        <div class="col-6">
+                            <div class="card p-3 bg-light">
+                                <strong>Monthly Recurring Revenue (MRR):</strong>
+                                <h3 class="text-primary mt-2">
+                                    <span t-esc="mrr" t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card p-3 bg-light">
+                                <strong>Annual Recurring Revenue (ARR):</strong>
+                                <h3 class="text-info mt-2">
+                                    <span t-esc="arr" t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Active Subscriptions (<t t-esc="len(subs)"/>)</h4>
+                    <table class="table table-sm table-striped mt-3">
+                        <thead>
+                            <tr>
+                                <th>Subscription Name</th>
+                                <th>Customer</th>
+                                <th>Start Date</th>
+                                <th class="text-end">MRR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="subs" t-as="sub">
+                                <tr>
+                                    <td><span t-field="sub.name"/></td>
+                                    <td><span t-field="sub.partner_id.name"/></td>
+                                    <td><span t-field="sub.start_date"/></td>
+                                    <td class="text-end"><span t-field="sub.mrr" t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

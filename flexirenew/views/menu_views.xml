@@ -1,0 +1,62 @@
+<odoo>
+    <!-- Actions -->
+    <record id="action_subscriptions_dashboard" model="ir.actions.client">
+        <field name="name">Command Center</field>
+        <field name="tag">subscriptions_dashboard</field>
+    </record>
+
+    <record id="action_flexirenew_all" model="ir.actions.act_window">
+        <field name="name">All Contracts</field>
+        <field name="res_model">flexirenew.subscription</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_flexirenew_subscription_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage your first subscription!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_flexirenew_revenue" model="ir.actions.act_window">
+        <field name="name">Revenue: Subscriptions</field>
+        <field name="res_model">flexirenew.subscription</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="domain">[('type', '=', 'incoming')]</field>
+        <field name="context">{'default_type': 'incoming'}</field>
+    </record>
+
+    <record id="action_flexirenew_wallet" model="ir.actions.act_window">
+        <field name="name">Expenses: Renewals</field>
+        <field name="res_model">flexirenew.subscription</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="domain">[('type', '=', 'outgoing')]</field>
+        <field name="context">{'default_type': 'outgoing'}</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_flexirenew_root" name="Subscriptions" sequence="10" action="action_subscriptions_dashboard"/>
+
+    <menuitem id="menu_subscriptions_dashboard" 
+              name="Dashboard" 
+              parent="menu_flexirenew_root" 
+              action="action_subscriptions_dashboard" 
+              sequence="5"/>
+
+    <menuitem id="menu_flexirenew_revenue" 
+              name="Revenue (Client)" 
+              parent="menu_flexirenew_root" 
+              action="action_flexirenew_revenue" 
+              sequence="10"/>
+
+    <menuitem id="menu_flexirenew_wallet" 
+              name="Expenses (Wallet)" 
+              parent="menu_flexirenew_root" 
+              action="action_flexirenew_wallet" 
+              sequence="20"/>
+
+    <menuitem id="menu_flexirenew_all" 
+              name="All Contracts" 
+              parent="menu_flexirenew_root" 
+              action="action_flexirenew_all" 
+              sequence="30"/>
+</odoo>

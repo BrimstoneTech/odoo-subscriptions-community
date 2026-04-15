@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="flexirenew.SubscriptionsDashboard" owl="1">
+        <div class="o_subscriptions_dashboard p-4 bg-light h-100 overflow-auto">
+            <div class="row mb-4 pt-3">
+                <div class="col-12">
+                    <h2 class="fw-bold text-dark">Subscription Command Center</h2>
+                    <p class="text-muted">Real-time health monitoring of your recurring revenue.</p>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <!-- MRR Card -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 bg-white" t-on-click="openRevenue" style="cursor: pointer; transition: transform 0.2s;">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                                    <i class="fa fa-refresh text-primary fs-4"></i>
+                                </div>
+                                <h5 class="card-title text-muted mb-0 fw-semibold">Monthly Revenue (MRR)</h5>
+                            </div>
+                            <h2 class="fw-bold mb-1">
+                                <t t-esc="state.stats.currency_symbol"/>
+                                <t t-esc="state.stats.mrr.toLocaleString()"/>
+                            </h2>
+                            <p class="text-success mb-0 small fw-bold">
+                                <i class="fa fa-caret-up"></i> Live Tracking Enabled
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARR Card -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 bg-white">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-info bg-opacity-10 p-3 rounded-circle me-3">
+                                    <i class="fa fa-line-chart text-info fs-4"></i>
+                                </div>
+                                <h5 class="card-title text-muted mb-0 fw-semibold">Annual Projection (ARR)</h5>
+                            </div>
+                            <h2 class="fw-bold mb-1">
+                                <t t-esc="state.stats.currency_symbol"/>
+                                <t t-esc="state.stats.arr.toLocaleString()"/>
+                            </h2>
+                            <p class="text-muted mb-0 small">Projected based on active contracts</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Count Card -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 bg-white" t-on-click="openSubscriptions" style="cursor: pointer;">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-success bg-opacity-10 p-3 rounded-circle me-3">
+                                    <i class="fa fa-users text-success fs-4"></i>
+                                </div>
+                                <h5 class="card-title text-muted mb-0 fw-semibold">Active Subscriptions</h5>
+                            </div>
+                            <h2 class="fw-bold mb-1"><t t-esc="state.stats.active_count"/></h2>
+                            <p class="text-muted mb-0 small">Current paying customers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual placeholder for a chart or table -->
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-3 bg-white">
+                        <div class="card-header bg-transparent border-0 pt-4 px-4">
+                            <h5 class="fw-bold mb-0">Revenue Growth Trend</h5>
+                        </div>
+                        <div class="card-body p-5 text-center">
+                            <div class="py-5 bg-light rounded-3 d-flex flex-column align-items-center justify-content-center border-dashed" style="border: 2px dashed #dee2e6;">
+                                <i class="fa fa-bar-chart fs-1 text-muted mb-3"></i>
+                                <p class="text-muted mb-3">Insightful charts are generating based on your data...</p>
+                                <button class="btn btn-primary px-4 rounded-pill" t-on-click="openSubscriptions">View Full Analytics</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-3 bg-white h-100">
+                        <div class="card-header bg-transparent border-0 pt-4 px-4">
+                            <h5 class="fw-bold mb-0">Quick Actions</h5>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column gap-2">
+                            <button class="btn btn-outline-primary d-flex align-items-center justify-content-between p-3 rounded-3" t-on-click="openSubscriptions">
+                                <span>Create New Contract</span>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button class="btn btn-outline-dark d-flex align-items-center justify-content-between p-3 rounded-3" t-on-click="exportReport">
+                                <span>Export Financial Report</span>
+                                <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

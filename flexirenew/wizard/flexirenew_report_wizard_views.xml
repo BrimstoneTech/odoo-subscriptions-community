@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_flexirenew_report_wizard_form" model="ir.ui.view">
+        <field name="name">flexirenew.report.wizard.form</field>
+        <field name="model">flexirenew.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Export Financial Report">
+                <div class="alert alert-info" role="alert">
+                    Choose an export format or print directly. Here is a preview of the report:
+                </div>
+                <field name="preview_html" widget="html" readonly="1" nolabel="1"/>
+                <footer>
+                    <button name="action_export_pdf" string="Export PDF" type="object" class="btn-primary" icon="fa-file-pdf-o"/>
+                    <button name="action_export_csv" string="Export CSV" type="object" class="btn-primary" icon="fa-file-excel-o"/>
+                    <button name="action_print" string="Print View" type="object" class="btn-secondary" icon="fa-print"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_flexirenew_report_wizard" model="ir.actions.act_window">
+        <field name="name">Financial Report</field>
+        <field name="res_model">flexirenew.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

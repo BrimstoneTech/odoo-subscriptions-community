@@ -1,0 +1,144 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_flexirenew_subscription_tree" model="ir.ui.view">
+        <field name="name">flexirenew.subscription.tree</field>
+        <field name="model">flexirenew.subscription</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'" decoration-success="state == 'active'" decoration-warning="state == 'expired'" decoration-danger="state == 'past_due'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="type" widget="badge" decoration-primary="type == 'incoming'" decoration-warning="type == 'outgoing'"/>
+                <field name="next_renewal_date"/>
+                <field name="amount" sum="Total Amount"/>
+                <field name="mrr" sum="Total MRR" optional="show"/>
+                <field name="arr" sum="Total ARR" optional="hide"/>
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-danger="state == 'past_due'" decoration-info="state == 'draft'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_flexirenew_subscription_form" model="ir.ui.view">
+        <field name="name">flexirenew.subscription.form</field>
+        <field name="model">flexirenew.subscription</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_activate" string="Activate" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_renew" string="Renew Now" type="object" class="oe_highlight" invisible="state != 'active'"/>
+                    <button name="action_pause" string="Pause Service" type="object" invisible="state != 'active'"/>
+                    <button name="action_resume" string="Resume Service" type="object" class="oe_highlight" invisible="state != 'suspended'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,past_due,suspended,renewed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Package/Service Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="left_group">
+                            <field name="partner_id"/>
+                            <field name="type" widget="radio" options="{'horizontal': true}"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group name="right_group">
+                            <field name="start_date"/>
+                            <field name="next_renewal_date"/>
+                            <field name="frequency"/>
+                            <field name="custom_days" invisible="frequency != 'custom'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Subscription Items" name="lines">
+                            <field name="line_ids" mode="tree,form">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount" optional="show"/>
+                                    <field name="price_subtotal"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="mrr" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="type != 'incoming'"/>
+                                <field name="arr" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="type != 'incoming'"/>
+                            </group>
+                        </page>
+                        <page string="Automation &amp; Alerts" name="automation">
+                            <group>
+                                <group string="Notifications Settings">
+                                    <field name="reminder_enabled"/>
+                                    <field name="reminder_days_before" invisible="not reminder_enabled"/>
+                                </group>
+                                <group string="Billing Automation">
+                                    <field name="prorate_first_period"/>
+                                    <field name="auto_generate_document"/>
+                                    <field name="auto_post_and_send" invisible="not auto_generate_document or type != 'incoming'"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Internal Notes" name="notes">
+                            <field name="notes" placeholder="Describe the service, terms, or account credentials..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_flexirenew_subscription_search" model="ir.ui.view">
+        <field name="name">flexirenew.subscription.search</field>
+        <field name="model">flexirenew.subscription</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <filter string="Incoming (Revenue)" name="incoming" domain="[('type', '=', 'incoming')]"/>
+                <filter string="Outgoing (Wallet)" name="outgoing" domain="[('type', '=', 'outgoing')]"/>
+                <separator/>
+                <filter string="Active" name="active" domain="[('state', '=', 'active')]"/>
+                <filter string="Past Due" name="past_due" domain="[('state', '=', 'past_due')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Partner" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="view_flexirenew_subscription_graph" model="ir.ui.view">
+        <field name="name">flexirenew.subscription.graph</field>
+        <field name="model">flexirenew.subscription</field>
+        <field name="arch" type="xml">
+            <graph string="Subscription Analysis" type="line" sample="1">
+                <field name="next_renewal_date" interval="month"/>
+                <field name="mrr" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View -->
+    <record id="view_flexirenew_subscription_pivot" model="ir.ui.view">
+        <field name="name">flexirenew.subscription.pivot</field>
+        <field name="model">flexirenew.subscription</field>
+        <field name="arch" type="xml">
+            <pivot string="Subscription Analysis" sample="1">
+                <field name="next_renewal_date" type="row" interval="month"/>
+                <field name="type" type="col"/>
+                <field name="mrr" type="measure"/>
+                <field name="arr" type="measure"/>
+                <field name="amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+</odoo>
