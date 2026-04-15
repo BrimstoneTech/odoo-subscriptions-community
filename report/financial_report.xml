@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_financial_summary" model="ir.actions.report">
+        <field name="name">Financial Summary Report</field>
+        <field name="model">flexirenew.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">flexirenew.report_financial_summary_template</field>
+        <field name="report_file">flexirenew.report_financial_summary_template</field>
+        <field name="print_report_name">'Financial_Summary_%s' % (time.strftime('%Y-%m-%d'))</field>
+        <field name="binding_model_id" ref="model_flexirenew_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
