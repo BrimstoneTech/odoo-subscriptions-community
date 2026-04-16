@@ -1,12 +1,12 @@
 {
     'name': 'Subscriptions: Ultimate Multi-Level Follow-Up & Analytics',
-    'version': '1.1.1',
+    'version': '1.1.2',
     'price': 294.00,
     'currency': 'USD',
     'license': 'OPL-1',
     'summary': 'Professional Service Contract Management with MRR/ARR Dashboards',
     'description': """
-🎉 **LAUNCH PROMO: 30% OFF FOR THE FIRST 5 BUYERS!** 🎉
+*** LAUNCH PROMO: 30% OFF FOR THE FIRST 5 BUYERS! ***
 *(Regular price: $420.00. Grab it now before the price automatically goes up!)*
 
 Subscriptions Management: The Enterprise-Grade Engine for Community
