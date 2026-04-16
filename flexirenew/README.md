@@ -1,5 +1,9 @@
 # Subscriptions: Ultimate Multi-Level Follow-Up & Analytics
 
+> [!IMPORTANT]
+> 🎉 **LAUNCH PROMO: 30% OFF FOR THE FIRST 5 BUYERS!** 🎉
+> *(Regular price: $420.00. Grab it now before the price automatically goes up!)*
+
 **A high-performance standalone module that transforms Odoo into a powerful subscription recurring engine.**
 
 Odoo Enterprise charges thousands per year for subscription management. This module brings the same capability to the **Community edition** — with a Command Center dashboard, automated billing, customer portal, and dual-direction tracking for both your revenue and your own business costs.
