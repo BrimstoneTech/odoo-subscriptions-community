@@ -1,6 +1,6 @@
 {
     'name': 'Subscriptions: Ultimate Multi-Level Follow-Up & Analytics',
-    'version': '1.1.2',
+    'version': '1.1.3',
     'price': 294.00,
     'currency': 'USD',
     'license': 'OPL-1',
